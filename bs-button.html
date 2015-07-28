@@ -1,0 +1,139 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../paper-ripple/paper-ripple.html">
+<link rel="import" href="../paper-behaviors/paper-button-behavior.html">
+<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+<!--
+An element providing a solution to no problem in particular.
+
+Example:
+
+    <bs-button></bs-button>
+
+@demo
+-->
+<dom-module id="bs-button">
+
+  <style>
+    :host {
+      display: inline-block;
+      position: relative;
+      box-sizing: border-box;
+      min-width: 5.14em;
+      min-height:2em;
+      margin: 0 0.29em;
+      background: #E1E1E1;
+      text-align: center;
+      font: inherit;
+      font-family: 'Roboto', sans-serif;
+      text-transform: uppercase;
+      outline: none;
+      border-radius: 1em;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+      cursor: pointer;
+      z-index: 0;
+      @apply(--bs-button);
+    }
+
+    :host([noink]) paper-ripple {
+      display: none;
+    }
+
+    img {
+      position:absolute;
+      top:0;
+      left:0;
+      width:2em;
+      height:2em;
+      border: 0.03em solid #CCC;
+      border-radius: 1em;
+    }
+
+    paper-material {
+      padding: 0.4em 0.8em 0.4em 2.3em;
+    }
+
+    .content > ::content * {
+      text-transform: inherit;
+    }
+    .content {
+      border-radius: 1em;
+    }
+  </style>
+
+  <template>
+    <paper-ripple></paper-ripple>
+    <paper-material class$="[[_computeContentClass(receivedFocusFromKeyboard)]]" elevation="[[_elevation]]" animated>
+      <img src="{{photo}}" />
+      <content>{{name}}</content>
+    </paper-material>
+  </template>
+
+</dom-module>
+
+<script>
+
+  Polymer({
+
+    is: 'bs-button',
+
+    behaviors: [
+      Polymer.PaperButtonBehavior
+    ],
+    properties: {
+      /**
+       * If true, the button should be styled with a shadow.
+       */
+      raised: {
+        type: Boolean,
+        reflectToAttribute: true,
+        value: false,
+        observer: '_calculateElevation'
+      },
+      /**
+       * The name of the person/thing the chip is about
+       */
+      name: {
+        type: String,
+        reflectToAttribute: true,
+        value: true
+      },
+      /**
+       * The image URL for the chip photo
+       */
+      photo: {
+        type: String,
+        reflectToAttribute: true,
+        value: true
+      }
+    },
+    _calculateElevation: function() {
+      if (!this.raised) {
+        this._elevation = 0;
+      } else {
+        Polymer.PaperButtonBehaviorImpl._calculateElevation.apply(this);
+      }
+    },
+    _computeContentClass: function(receivedFocusFromKeyboard) {
+      var className = 'content ';
+      if (receivedFocusFromKeyboard) {
+        className += ' keyboard-focus';
+      }
+      return className;
+    }
+  });
+
+</script>
