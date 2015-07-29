@@ -1,5 +1,5 @@
 {
-  "name": "bs-button",
+  "name": "paper-chip",
   "version": "1.0.0",
   "authors": [
     "Erich Reich <erich.reich@gmail.com>"
@@ -10,11 +10,11 @@
     "web-components",
     "polymer",
     "boot-goo",
-    "bs-button"
+    "paper-chip"
   ],
-  "main": "bs-button.html",
+  "main": "paper-chip.html",
   "license": "http://polymer.github.io/LICENSE.txt",
-  "homepage": "https://github.com/kdubb1337/bs-button/",
+  "homepage": "https://github.com/kdubb1337/paper-chip/",
   "ignore": [
     "/.*",
     "/test/",
